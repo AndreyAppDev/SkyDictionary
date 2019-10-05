@@ -8,4 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppBaseGridStyle">
+        <item name="android:paddingLeft">@dimen/spacing_normal</item>
+        <item name="android:paddingRight">@dimen/spacing_normal</item>
+    </style>
+
+    <style name="SearchInputStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">@dimen/text_size_primary</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColorHighlight">@color/textColorHighlight</item>
+        <item name="android:textColorHint">@color/colorHint</item>
+        <item name="android:colorAccent">@color/colorWhite</item>
+        <item name="android:inputType">text</item>
+        <item name="android:hint">Word...</item>
+    </style>
+
 </resources>
