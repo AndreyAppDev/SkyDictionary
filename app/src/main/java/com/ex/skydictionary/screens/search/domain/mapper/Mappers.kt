@@ -5,8 +5,10 @@ import com.ex.skydictionary.screens.search.data.entities.MeaningResponse
 import com.ex.skydictionary.screens.search.data.entities.SearchInDirectoryResponse
 import com.ex.skydictionary.screens.search.data.entities.TranslationResponse
 import com.ex.skydictionary.screens.search.domain.entities.response.MeaningDTO
+import com.ex.skydictionary.screens.search.domain.entities.response.PartOfSpeech
 import com.ex.skydictionary.screens.search.domain.entities.response.SearchInDirectoryDTO
 import com.ex.skydictionary.screens.search.domain.entities.response.TranslationDTO
+import java.util.*
 import javax.inject.Inject
 
 class SearchInDirectoryModelMapper @Inject constructor(
@@ -29,14 +31,16 @@ class SearchInDirectoryModelMapper @Inject constructor(
 }
 
 class MeaningModelMapper @Inject constructor(
-    private val translationMapper: IMapper<TranslationResponse, TranslationDTO>
+    private val translationMapper: IMapper<TranslationResponse, TranslationDTO>,
+    private val partOfSpeechCodeMapper: IMapper<String?, PartOfSpeech>
 ) : IMapper<MeaningResponse, MeaningDTO> {
 
     override fun map(data: MeaningResponse): MeaningDTO {
         return MeaningDTO(
             id = requireNotNull(data.id),
             translation = translationMapper.map(requireNotNull(data.translation)),
-            transcription = data.transcription
+            transcription = data.transcription,
+            partOfSpeech = partOfSpeechCodeMapper.map(data.partOfSpeechCode)
         )
     }
 
@@ -51,5 +55,14 @@ class TranslationModelMapper @Inject constructor() :
             note = data.note
         )
     }
+
+}
+
+class PartOfSpeechMapper @Inject constructor(
+    private val partOfSpeechCodeMap: Map<String, @JvmSuppressWildcards PartOfSpeech>
+) : IMapper<String?, PartOfSpeech> {
+
+    override fun map(data: String?) = if (data == null) PartOfSpeech.UNEXPECTED else
+        partOfSpeechCodeMap[data.toLowerCase(Locale.ENGLISH)] ?: PartOfSpeech.UNEXPECTED
 
 }

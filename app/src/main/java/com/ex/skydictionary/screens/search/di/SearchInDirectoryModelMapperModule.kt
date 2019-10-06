@@ -5,9 +5,11 @@ import com.ex.skydictionary.screens.search.data.entities.MeaningResponse
 import com.ex.skydictionary.screens.search.data.entities.SearchInDirectoryResponse
 import com.ex.skydictionary.screens.search.data.entities.TranslationResponse
 import com.ex.skydictionary.screens.search.domain.entities.response.MeaningDTO
+import com.ex.skydictionary.screens.search.domain.entities.response.PartOfSpeech
 import com.ex.skydictionary.screens.search.domain.entities.response.SearchInDirectoryDTO
 import com.ex.skydictionary.screens.search.domain.entities.response.TranslationDTO
 import com.ex.skydictionary.screens.search.domain.mapper.MeaningModelMapper
+import com.ex.skydictionary.screens.search.domain.mapper.PartOfSpeechMapper
 import com.ex.skydictionary.screens.search.domain.mapper.SearchInDirectoryModelMapper
 import com.ex.skydictionary.screens.search.domain.mapper.TranslationModelMapper
 import dagger.Binds
@@ -25,5 +27,8 @@ abstract class SearchInDirectoryModelMapperModule {
 
     @Binds
     abstract fun bindTranslationModelMapper(mapper: TranslationModelMapper): IMapper<TranslationResponse, TranslationDTO>
+
+    @Binds
+    abstract fun bindPartOfSpeechMapper(mapper: PartOfSpeechMapper): IMapper<String?, PartOfSpeech>
 
 }

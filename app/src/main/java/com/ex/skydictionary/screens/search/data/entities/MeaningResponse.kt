@@ -13,4 +13,7 @@ class MeaningResponse {
     @SerializedName("transcription")
     var transcription: String? = null
 
+    @SerializedName("partOfSpeechCode")
+    var partOfSpeechCode: String? = null
+
 }

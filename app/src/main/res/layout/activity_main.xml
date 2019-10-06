@@ -7,6 +7,7 @@
     tools:context=".screens.search.ui.SearchInDictionaryActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_screen_header"
         style="@style/AppBaseGridStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/search_screen_header_height"
@@ -26,7 +27,13 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/lorem" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dictionary_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_screen_header" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

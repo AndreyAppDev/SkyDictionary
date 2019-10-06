@@ -7,4 +7,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorHint">#F1F1F1</color>
     <color name="textColorHighlight">#68104FAF</color>
+    <color name="textColorSecondary">#464646</color>
+    <color name="textColorGraySecondary">#818181</color>
+    <color name="child_dictionary_body_bg">#B8D1F7</color>
 </resources>
