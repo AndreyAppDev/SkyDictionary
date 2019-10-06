@@ -10,9 +10,12 @@ import com.ex.skydictionary.R
 import com.ex.skydictionary.internal.adapter.BaseAdapter
 import com.ex.skydictionary.internal.adapter.BaseViewHolder
 import com.ex.skydictionary.internal.extensions.capsFistChar
+import com.ex.skydictionary.screens.search.domain.entities.response.MeaningDTO
 import com.ex.skydictionary.screens.search.domain.entities.response.SearchInDirectoryDTO
 
-class DictionaryAdapter : BaseAdapter<SearchInDirectoryDTO, DictionaryViewHolder>() {
+class DictionaryAdapter(
+    private val onItemBodyClickListener: (MeaningDTO) -> Unit
+) : BaseAdapter<SearchInDirectoryDTO, DictionaryViewHolder>() {
 
     private val recyclerViewPool = RecyclerView.RecycledViewPool()
 
@@ -32,7 +35,7 @@ class DictionaryAdapter : BaseAdapter<SearchInDirectoryDTO, DictionaryViewHolder
         val data = dataList[position]
         holder.recyclerView.apply {
             layoutManager = childLayoutManager
-            val dictionaryChildAdapter = DictionaryChildAdapter()
+            val dictionaryChildAdapter = DictionaryChildAdapter(onItemBodyClickListener)
             adapter = dictionaryChildAdapter
             dictionaryChildAdapter.updateAll(data.gropedMeanings)
             setRecycledViewPool(recyclerViewPool)

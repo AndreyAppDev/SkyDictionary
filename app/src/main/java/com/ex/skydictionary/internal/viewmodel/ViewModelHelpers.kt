@@ -1,6 +1,7 @@
 package com.ex.skydictionary.internal.viewmodel
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import io.reactivex.disposables.CompositeDisposable
 
@@ -15,6 +16,9 @@ abstract class DisposableViewMode : ViewModel() {
 }
 
 inline fun <reified T : ViewModel> AppCompatActivity.getViewModel(viewModelFactory: ViewModelProvider.Factory) =
+    ViewModelProviders.of(this, viewModelFactory).get(T::class.java)
+
+inline fun <reified T : ViewModel> Fragment.getViewModel(viewModelFactory: ViewModelProvider.Factory) =
     ViewModelProviders.of(this, viewModelFactory).get(T::class.java)
 
 inline fun <T> LiveData<T>.observe(

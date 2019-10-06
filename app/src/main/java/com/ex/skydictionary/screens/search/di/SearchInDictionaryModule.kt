@@ -23,6 +23,6 @@ abstract class SearchInDictionaryModule {
     @Binds
     @IntoMap
     @ViewModelKey(SearchInDirectoryViewModel::class)
-    abstract fun bindPresenter(viewModel: SearchInDirectoryViewModel): ViewModel
+    abstract fun bindViewModel(viewModel: SearchInDirectoryViewModel): ViewModel
 
 }

@@ -12,8 +12,9 @@ import com.ex.skydictionary.internal.extensions.capsFistChar
 import com.ex.skydictionary.screens.search.domain.entities.response.MeaningDTO
 import com.ex.skydictionary.screens.search.domain.entities.response.PartOfSpeech
 
-class DictionaryChildAdapter :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DictionaryChildAdapter(
+    private val onBodyItemClick: (MeaningDTO) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val dataList = mutableListOf<ListItemView>()
 
@@ -24,7 +25,7 @@ class DictionaryChildAdapter :
                     R.layout.dictionary_child_body,
                     parent,
                     false
-                )
+                ), onBodyItemClick
             )
         } else {
             DictionaryChildHeaderViewHolder(
@@ -78,15 +79,22 @@ class DictionaryChildHeaderViewHolder(view: View) : BaseViewHolder<PartOfSpeech>
 
 }
 
-class DictionaryChildViewHolder(view: View) :
-    BaseViewHolder<MeaningDTO>(view) {
+class DictionaryChildViewHolder(
+    view: View,
+    private val onClick: (MeaningDTO) -> Unit
+) : BaseViewHolder<MeaningDTO>(view) {
 
     private val text: TextView by lazy { itemView.findViewById<TextView>(R.id.translation) }
     private val transcription: TextView by lazy { itemView.findViewById<TextView>(R.id.transcription) }
 
     override fun bind(data: MeaningDTO) {
         text.text = data.translation.text.capsFistChar()
-        transcription.text = "[${data.transcription}]"
+        if (!data.transcription.isNullOrEmpty()) {
+            transcription.text = "[${data.transcription}]"
+        }
+        itemView.setOnClickListener {
+            onClick(data)
+        }
     }
 
 }

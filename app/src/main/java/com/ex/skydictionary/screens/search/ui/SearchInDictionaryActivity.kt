@@ -13,6 +13,7 @@ import com.ex.skydictionary.screens.search.di.SearchInDictionaryComponent
 import com.ex.skydictionary.screens.search.presentation.ISearchInDirectoryViewModel
 import com.ex.skydictionary.screens.search.presentation.SearchInDirectoryViewModel
 import com.ex.skydictionary.screens.search.ui.adapter.DictionaryAdapter
+import com.ex.skydictionary.screens.wordcard.ui.WordCardBottomSheet
 import com.jakewharton.rxbinding3.widget.afterTextChangeEvents
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,7 +26,10 @@ class SearchInDictionaryActivity : AppCompatActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: ISearchInDirectoryViewModel
     private val disposable = CompositeDisposable()
-    private val adapter = DictionaryAdapter()
+
+    private val adapter = DictionaryAdapter {
+        WordCardBottomSheet.getInstance(it).show(supportFragmentManager, "tag")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

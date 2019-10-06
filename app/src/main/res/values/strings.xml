@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SkyDictionary</string>
+    <string name="definition_title">Определение:</string>
 </resources>

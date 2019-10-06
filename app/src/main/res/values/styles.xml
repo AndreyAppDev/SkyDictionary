@@ -13,6 +13,18 @@
         <item name="android:paddingRight">@dimen/spacing_bigger</item>
     </style>
 
+    <style name="AppBottomSheetGridStyle">
+        <item name="android:padding">@dimen/spacing_small</item>
+    </style>
+
+    <style name="DetailsCardBaseStyle">
+        <item name="android:padding">@dimen/spacing_smallest</item>
+        <item name="android:layout_marginTop">@dimen/spacing_smallest</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+
     <style name="AppListItemGrid">
         <item name="android:paddingLeft">@dimen/spacing_small</item>
         <item name="android:paddingRight">@dimen/spacing_small</item>
