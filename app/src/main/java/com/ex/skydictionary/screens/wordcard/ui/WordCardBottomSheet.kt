@@ -73,8 +73,6 @@ class WordCardBottomSheet : BottomSheetDialogFragment() {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
-
-
         return dialog
     }
 

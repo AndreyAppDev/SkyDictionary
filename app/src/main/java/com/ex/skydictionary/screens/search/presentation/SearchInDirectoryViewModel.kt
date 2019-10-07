@@ -28,5 +28,4 @@ class SearchInDirectoryViewModel @Inject constructor(
             })
     }
 
-
 }
