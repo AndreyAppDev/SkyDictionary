@@ -13,4 +13,5 @@
     <color name="word_card_text_secondary">#F5F5F5</color>
     <color name="bottom_sheet_top_line_color">#E0DFDF</color>
     <color name="meaning_with_similar_translation_bg_color">#E78E7D</color>
+    <color name="word_alternative_item_bg">#AC7A9C</color>
 </resources>

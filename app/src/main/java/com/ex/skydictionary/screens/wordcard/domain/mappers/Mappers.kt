@@ -87,8 +87,7 @@ class WordImageMapper @Inject constructor() : IMapper<ImageResponse?, WordMeanin
 
     private fun clearUrl(url: String?): String? =
         when {
-            url?.startsWith("/") == true -> clearUrl(url.substring(1))
-            url?.startsWith("htt") == false -> "http://$url"
+            url?.startsWith("htt") == false -> "https:$url"
             else -> url
         }
 
