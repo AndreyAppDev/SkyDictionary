@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.ex.skydictionary.R
+import com.ex.skydictionary.internal.BaseBottomSheetDialog
 import com.ex.skydictionary.internal.viewmodel.getViewModel
 import com.ex.skydictionary.screens.search.domain.entities.response.MeaningDTO
 import com.ex.skydictionary.screens.wordcard.di.WordMeaningsInfoComponent
@@ -21,7 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_sheet_word_card.*
 import javax.inject.Inject
 
-class WordCardBottomSheet : BottomSheetDialogFragment() {
+class WordCardBottomSheet : BaseBottomSheetDialog() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -70,6 +71,7 @@ class WordCardBottomSheet : BottomSheetDialogFragment() {
             val bottomSheet = dialog.findViewById<FrameLayout>(R.id.design_bottom_sheet)
                 ?: return@setOnShowListener
             val bottomSheetBehavior = BottomSheetBehavior.from<FrameLayout>(bottomSheet)
+            setDismissDialogOnBottomSheetCallback(bottomSheetBehavior)
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
