@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">SkyDictionary</string>
     <string name="definition_title">Определение:</string>
+    <string name="examples_header">Примеры: </string>
+    <string name="meaningsWithSimilarTranslation_header">Похожие слова: </string>
+    <string name="alternative_header">Альтернативные слова: </string>
+    <string name="image_header">Изображение: </string>
+    <string name="image_content_description">картинка</string>
 </resources>

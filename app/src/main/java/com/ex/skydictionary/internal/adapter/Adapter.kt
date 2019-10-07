@@ -61,6 +61,12 @@ abstract class MultipleViewTypeAdapter : RecyclerView.Adapter<RecyclerView.ViewH
 
     fun getItem(pos: Int) = dataList[pos]
 
+    fun updateAll(data: List<ListItemView>) {
+        dataList.clear()
+        dataList.addAll(data)
+        notifyDataSetChanged()
+    }
+
     companion object {
         private const val VIEW_TYPE_STUB = -1
     }

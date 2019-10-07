@@ -11,4 +11,6 @@
     <color name="textColorGraySecondary">#818181</color>
     <color name="child_dictionary_body_bg">#B8D1F7</color>
     <color name="word_card_text_secondary">#F5F5F5</color>
+    <color name="bottom_sheet_top_line_color">#E0DFDF</color>
+    <color name="meaning_with_similar_translation_bg_color">#E78E7D</color>
 </resources>

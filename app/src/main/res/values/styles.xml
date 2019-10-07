@@ -30,6 +30,13 @@
         <item name="android:paddingRight">@dimen/spacing_small</item>
     </style>
 
+    <style name="WordMeaningDetailsItemStyle" parent="AppListItemGrid">
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:paddingTop">@dimen/spacing_small</item>
+        <item name="android:paddingBottom">@dimen/spacing_small</item>
+    </style>
+
     <style name="SearchInputStyle" parent="Widget.AppCompat.EditText">
         <item name="android:textSize">@dimen/text_size_big</item>
         <item name="android:textColor">@color/colorWhite</item>

@@ -1,5 +1,9 @@
 package com.ex.skydictionary.screens.wordcard.domain.mappers
 
+import com.ex.skydictionary.R
+import com.ex.skydictionary.internal.adapter.ListItemView
+import com.ex.skydictionary.internal.adapter.SectionHeaderItemView
+import com.ex.skydictionary.internal.app.IResourceProvider
 import com.ex.skydictionary.internal.mapper.IMapper
 import com.ex.skydictionary.screens.search.data.entities.TranslationResponse
 import com.ex.skydictionary.screens.search.domain.entities.response.PartOfSpeech
@@ -16,33 +20,78 @@ class WordMeaningsDetailMapper @Inject constructor(
     private val wordMeaningExampleMapper: IMapper<WordMeaningExampleResponse, WordMeaningExampleDTO>,
     private val wordMeaningWithSimilarTranslationMapper: IMapper<MeaningsWithSimilarTranslationResponse,
             MeaningsWithSimilarTranslationDTO>,
-    private val alternativeTranslationsMapper: IMapper<AlternativeTranslationsResponse, AlternativeTranslationsDTO>
+    private val alternativeTranslationsMapper: IMapper<AlternativeTranslationsResponse, AlternativeTranslationsDTO>,
+    private val resources: IResourceProvider
 ) : IMapper<WordMeaningDetailResponse, WordMeaningsDetailDTO> {
 
     override fun map(data: WordMeaningDetailResponse): WordMeaningsDetailDTO {
+        val examples = data.examples?.map(wordMeaningExampleMapper::map)
+        val meaningsWithSimilarTranslation = data.meaningsWithSimilarTranslation?.map(
+            wordMeaningWithSimilarTranslationMapper::map
+        )
+        val alternativeTranslations = data.alternativeTranslationsResponse?.map(
+            alternativeTranslationsMapper::map
+        )
+        val image = imageMapper.map(data.images?.first())
         return WordMeaningsDetailDTO(
             id = data.id,
             partOfSpeech = partOfSpeechMapper.map(data.partOfSpeechCode),
             text = data.text,
             translation = data.translation?.let { transitionManager.map(it) },
             transcription = data.transcription?.let { "[$it]" },
-            images = imageMapper.map(data.images?.first()),
+            images = image,
             definitions = definitionMapper.map(requireNotNull(data.definition)),
-            examples = data.examples?.map(wordMeaningExampleMapper::map),
-            meaningsWithSimilarTranslation = data.meaningsWithSimilarTranslation?.map(
-                wordMeaningWithSimilarTranslationMapper::map
-            ),
-            alternativeTranslations = data.alternativeTranslationsResponse?.map(
-                alternativeTranslationsMapper::map
-            )
+            examples = examples,
+            meaningsWithSimilarTranslation = meaningsWithSimilarTranslation,
+            alternativeTranslations = alternativeTranslations,
+            wordMeaningDetails = mutableListOf<ListItemView>().apply {
+                combineData(resources.getString(R.string.examples_header), examples, this)
+                image?.let {
+                    add(SectionHeaderItemView(resources.getString(R.string.image_header)))
+                    add(it)
+                }
+                combineData(
+                    resources.getString(R.string.meaningsWithSimilarTranslation_header),
+                    meaningsWithSimilarTranslation,
+                    this
+                )
+                combineData(
+                    resources.getString(R.string.alternative_header),
+                    alternativeTranslations?.take(10),
+                    this
+                )
+
+            }
         )
     }
+
+    private fun combineData(
+        headerText: String,
+        newData: List<ListItemView>?,
+        container: MutableList<ListItemView>
+    ) {
+        newData?.let {
+            if (it.isNotEmpty()) {
+                container.add(SectionHeaderItemView(headerText))
+                container.addAll(it)
+            }
+        }
+    }
+
 }
 
 class WordImageMapper @Inject constructor() : IMapper<ImageResponse?, WordMeaningImageDTO?> {
     override fun map(data: ImageResponse?): WordMeaningImageDTO? {
-        return if (data != null) WordMeaningImageDTO(data.url) else null
+        return if (data?.url != null) WordMeaningImageDTO(clearUrl(data.url)) else null
     }
+
+    private fun clearUrl(url: String?): String? =
+        when {
+            url?.startsWith("/") == true -> clearUrl(url.substring(1))
+            url?.startsWith("htt") == false -> "http://$url"
+            else -> url
+        }
+
 }
 
 class DefinitionsMapper @Inject constructor() : IMapper<DefinitionResponse, WordDefinitionDTO> {

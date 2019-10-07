@@ -3,6 +3,7 @@ package com.ex.skydictionary.internal.di
 import android.content.Context
 import com.ex.skydictionary.internal.api.ISkyEngDictionaryApi
 import com.ex.skydictionary.internal.api.RetrofitModule
+import com.ex.skydictionary.internal.app.IResourceProvider
 import com.ex.skydictionary.internal.di.viewmodel.ViewModelModule
 import com.ex.skydictionary.internal.helpers.PartOfSpeechCodeMapModule
 import com.ex.skydictionary.screens.search.domain.entities.response.PartOfSpeech
@@ -14,7 +15,8 @@ import javax.inject.Singleton
     modules = [
         RetrofitModule::class,
         ViewModelModule::class,
-        PartOfSpeechCodeMapModule::class
+        PartOfSpeechCodeMapModule::class,
+        ResourceProviderModule::class
     ]
 )
 @Singleton
@@ -25,6 +27,8 @@ interface AppComponent {
     fun provideApi(): ISkyEngDictionaryApi
 
     fun providePartOfSpeechMap(): Map<String, PartOfSpeech>
+
+    fun provideResourceProvider(): IResourceProvider
 
     @Component.Builder
     interface Builder {
