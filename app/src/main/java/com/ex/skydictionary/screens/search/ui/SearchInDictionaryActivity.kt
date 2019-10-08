@@ -41,6 +41,7 @@ class SearchInDictionaryActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+        search_input.requestFocus()
         dictionary_recycler_view.layoutManager = LinearLayoutManager(this)
         dictionary_recycler_view.adapter = adapter
     }
